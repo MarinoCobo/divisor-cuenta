@@ -59,7 +59,8 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
     return Scaffold(
       appBar: AppBar(title: const Text('Divisor de cuenta')),
       body: SafeArea(
-        child: Center(
+        child: Align(
+          alignment: Alignment.topCenter,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 480),
             child: SingleChildScrollView(

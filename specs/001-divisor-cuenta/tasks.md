@@ -117,10 +117,10 @@ superior.
 ## Phase 7: Polish & Cross-Cutting Concerns
 
 - [X] T023 `dart format lib test` y `flutter analyze` sin issues
-- [ ] T024 Correr los comandos de "Verificación de cumplimiento" de `.specify/memory/constitution.md`
-- [ ] T025 Validar a mano los 6 escenarios de `quickstart.md` corriendo la app, y comprobar que el resultado aparece en menos de 1 s (SC-003)
-- [ ] T026 [P] Reemplazar `README.md` de la plantilla por uno que explique qué es, cómo instalar, correr y probar
-- [ ] T027 Construir la app (`flutter build apk --debug`; si no hay Android SDK, `flutter build macos --debug` y dejar el APK como paso pendiente)
+- [X] T024 Correr los comandos de "Verificación de cumplimiento" de `.specify/memory/constitution.md`
+- [X] T025 Validar a mano los 6 escenarios de `quickstart.md` corriendo la app, y comprobar que el resultado aparece en menos de 1 s (SC-003)
+- [X] T026 [P] Reemplazar `README.md` de la plantilla por uno que explique qué es, cómo instalar, correr y probar
+- [X] T027 Construir la app (`flutter build apk --debug`; si no hay Android SDK, `flutter build macos --debug` y dejar el APK como paso pendiente)
 
 ---
 
@@ -167,6 +167,11 @@ Task: "Implementar FormateadorMoneda en lib/presentation/formateador_moneda.dart
 
 - Total: 27 tareas (T001-T027).
 - Commit después de cada fase.
+- T025: validado en Chrome (build web servido en localhost) con los 6 escenarios; se alineó
+  el formulario arriba porque centrado verticalmente quedaba a media pantalla.
+- T027: `flutter build apk --debug` falla porque esta Mac no tiene Android SDK
+  ("No Android SDK found"); `flutter build macos --debug` construye bien. El APK queda
+  como paso pendiente del estudiante.
 - Hallazgo durante implement: T011 listaba `ValidarEntrada` en el constructor del
   controlador, pero esa clase no existe hasta T014 (US2). Se implementó T011 sin ella y
   se agregó en T015. `/speckit-analyze` no lo detectó.
