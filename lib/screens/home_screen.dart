@@ -1,16 +1,13 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../models/bill.dart';
-import '../state/bill_controller.dart';
-import '../widgets/equal_total_section.dart';
-import '../widgets/items_section.dart';
-import '../widgets/people_section.dart';
-import '../widgets/results_section.dart';
-import '../widgets/tip_section.dart';
+import '../logic/money.dart';
+import '../logic/split_calculator.dart';
 
-/// Pantalla única de la app. Crea el BillController y lo pasa a cada sección.
+/// Pantalla única: monto, número de personas y propina -> cuánto paga cada uno.
+/// El resultado se recalcula mientras se escribe.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,84 +16,105 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _bill = BillController();
+  final _amount = TextEditingController();
+  final _people = TextEditingController();
+  final _tip = TextEditingController();
 
   @override
   void dispose() {
-    _bill.dispose();
+    _amount.dispose();
+    _people.dispose();
+    _tip.dispose();
     super.dispose();
-  }
-
-  Future<void> _confirmReset() async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('¿Empezar de nuevo?'),
-        content: const Text(
-          'Se borrarán las personas, los consumos y el total.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancelar'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Borrar todo'),
-          ),
-        ],
-      ),
-    );
-    if (confirmed == true) _bill.reset();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Lee los tres campos. null = vacío o inválido.
+    final billCents = parseCents(_amount.text);
+    final people = int.tryParse(_people.text);
+    final tipPercent = _tip.text.trim().isEmpty ? 0.0 : parsePercent(_tip.text);
+
+    final amountError = _amount.text.trim().isNotEmpty && billCents == null
+        ? 'Monto no válido'
+        : null;
+    final peopleError = people == 0 ? 'Debe ser al menos 1' : null;
+    final tipError = tipPercent == null ? 'Entre 0 y 100' : null;
+
+    final shareCents =
+        billCents != null && people != null && people > 0 && tipPercent != null
+        ? sharePerPerson(
+            billCents: billCents,
+            people: people,
+            tipPercent: tipPercent,
+          )
+        : null;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Divide la cuenta'),
-        actions: [
-          IconButton(
-            onPressed: _confirmReset,
-            tooltip: 'Empezar de nuevo',
-            icon: const Icon(Icons.restart_alt),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text('Divide la cuenta')),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            // En pantallas anchas (tablet, web) el contenido se centra con un
-            // ancho máximo para que no quede estirado.
-            final sidePadding = math.max(
-              16.0,
-              (constraints.maxWidth - 640) / 2,
-            );
-            return ListenableBuilder(
-              listenable: _bill,
-              builder: (context, _) => ListView(
-                padding: EdgeInsets.fromLTRB(sidePadding, 8, sidePadding, 32),
-                children: [
-                  _ModeSelector(bill: _bill),
-                  const SizedBox(height: 16),
-                  PeopleSection(
-                    key: ValueKey('people-${_bill.resetCount}'),
-                    bill: _bill,
+            // En pantallas anchas el contenido se centra con un ancho máximo.
+            final side = math.max(16.0, (constraints.maxWidth - 480) / 2);
+            return ListView(
+              padding: EdgeInsets.fromLTRB(side, 16, side, 32),
+              children: [
+                TextField(
+                  controller: _amount,
+                  autofocus: true,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
                   ),
-                  const SizedBox(height: 16),
-                  if (_bill.mode == SplitMode.equal)
-                    EqualTotalSection(
-                      key: ValueKey('total-${_bill.resetCount}'),
-                      bill: _bill,
-                    )
-                  else
-                    ItemsSection(bill: _bill),
-                  const SizedBox(height: 16),
-                  TipSection(bill: _bill),
-                  const SizedBox(height: 16),
-                  ResultsSection(bill: _bill),
-                ],
-              ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
+                  ],
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    labelText: 'Monto total',
+                    prefixText: '\$ ',
+                    hintText: '0.00',
+                    errorText: amountError,
+                  ),
+                  onChanged: (_) => setState(() {}),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _people,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(3),
+                  ],
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    labelText: 'Número de personas',
+                    hintText: '2',
+                    errorText: peopleError,
+                  ),
+                  onChanged: (_) => setState(() {}),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _tip,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
+                  ],
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    labelText: 'Propina',
+                    suffixText: '%',
+                    hintText: '0',
+                    errorText: tipError,
+                  ),
+                  onChanged: (_) => setState(() {}),
+                ),
+                const SizedBox(height: 24),
+                _ResultCard(shareCents: shareCents),
+              ],
             );
           },
         ),
@@ -105,46 +123,57 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _ModeSelector extends StatelessWidget {
-  const _ModeSelector({required this.bill});
+class _ResultCard extends StatelessWidget {
+  const _ResultCard({required this.shareCents});
 
-  final BillController bill;
+  /// Lo que paga cada uno, o null si faltan datos.
+  final int? shareCents;
 
   @override
   Widget build(BuildContext context) {
-    final explanation = switch (bill.mode) {
-      SplitMode.equal => 'Todos pagan lo mismo.',
-      SplitMode.itemized =>
-        'Cada quien paga lo que consumió. Lo compartido se divide entre '
-            'quienes lo compartieron y la propina, en proporción al consumo.',
-    };
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SegmentedButton<SplitMode>(
-          segments: const [
-            ButtonSegment(
-              value: SplitMode.equal,
-              icon: Icon(Icons.balance),
-              label: Text('Partes iguales'),
-            ),
-            ButtonSegment(
-              value: SplitMode.itemized,
-              icon: Icon(Icons.restaurant_menu),
-              label: Text('Por consumo'),
-            ),
-          ],
-          selected: {bill.mode},
-          onSelectionChanged: (selection) => bill.setMode(selection.first),
-        ),
-        const SizedBox(height: 8),
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    final shareCents = this.shareCents;
+
+    final List<Widget> content;
+    if (shareCents == null) {
+      content = [
         Text(
-          explanation,
+          'Escribe el monto y el número de personas.',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodySmall
-              ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: colors.onSecondaryContainer,
+          ),
         ),
-      ],
+      ];
+    } else {
+      content = [
+        Text(
+          'Cada uno paga',
+          style: theme.textTheme.titleMedium?.copyWith(
+            color: colors.onSecondaryContainer,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          formatCents(shareCents),
+          style: theme.textTheme.displayMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: colors.onSecondaryContainer,
+          ),
+        ),
+      ];
+    }
+
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      color: colors.secondaryContainer,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(children: content),
+      ),
     );
   }
 }

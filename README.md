@@ -1,12 +1,11 @@
 # Divide la cuenta
 
-App en Flutter para dividir la cuenta del restaurante entre varias personas.
+App en Flutter de una sola pantalla para dividir la cuenta en partes iguales:
+escribes el monto total, el número de personas y el porcentaje de propina, y
+te dice cuánto paga cada uno.
 
-- **Partes iguales:** escribes el total y todos pagan lo mismo.
-- **Por consumo:** agregas cada plato o bebida y marcas quiénes lo compartieron; lo compartido se divide entre ellos y la propina se reparte en proporción a lo que consumió cada uno.
-- Propina de 0, 10, 15, 20 % u otro porcentaje.
-- Los montos cuadran al centavo: el dinero se maneja en centavos enteros y los centavos sobrantes se reparten con el método del mayor residuo.
-- Botón para copiar un resumen y pegarlo en el chat del grupo.
+Si el total no se divide exacto, el monto por persona se redondea hacia arriba
+al centavo para que entre todos se cubra la cuenta.
 
 ## Cómo correrla
 
@@ -21,10 +20,7 @@ flutter test           # pruebas
 ```
 lib/
   main.dart                    tema y arranque
-  models/bill.dart             Person, BillItem, SplitResult
-  logic/money.dart             leer y formatear montos (centavos)
-  logic/split_calculator.dart  cálculo del reparto (Dart puro, con tests)
-  state/bill_controller.dart   estado de la cuenta (ChangeNotifier)
-  screens/home_screen.dart     pantalla principal
-  widgets/                     una sección de la pantalla por archivo
+  screens/home_screen.dart     la pantalla
+  logic/money.dart             leer y formatear montos (en centavos)
+  logic/split_calculator.dart  cálculo de la división (Dart puro, con tests)
 ```

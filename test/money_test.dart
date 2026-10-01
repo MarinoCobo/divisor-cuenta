@@ -32,11 +32,11 @@ void main() {
     expect(formatCents(100000000), r'$1,000,000.00');
   });
 
-  test('formatPercent y parsePercent', () {
-    expect(formatPercent(10), '10 %');
-    expect(formatPercent(12.5), '12.5 %');
+  test('parsePercent', () {
+    expect(parsePercent('10'), 10);
     expect(parsePercent('12,5'), 12.5);
     expect(parsePercent('101'), isNull);
     expect(parsePercent('-1'), isNull);
+    expect(parsePercent('abc'), isNull);
   });
 }

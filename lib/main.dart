@@ -22,21 +22,13 @@ class DivisorCuentaApp extends StatelessWidget {
 }
 
 ThemeData _buildTheme(Brightness brightness) {
-  final colors = ColorScheme.fromSeed(
-    seedColor: const Color(0xFF00897B),
-    brightness: brightness,
-  );
   return ThemeData(
-    colorScheme: colors,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: const Color(0xFF00897B),
+      brightness: brightness,
+    ),
     inputDecorationTheme: const InputDecorationTheme(
       border: OutlineInputBorder(),
-      isDense: true,
-    ),
-    cardTheme: CardThemeData(
-      elevation: 0,
-      color: colors.surfaceContainerLow,
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
   );
 }
