@@ -32,10 +32,10 @@ estudiante las pide (Parte 9 de la guía).
 
 **Purpose**: dejar la estructura y las herramientas listas.
 
-- [ ] T001 Crear las carpetas `lib/domain/`, `lib/data/` y `lib/presentation/`
-- [ ] T002 [P] Activar la regla `public_member_api_docs` en `analysis_options.yaml` (constitución V)
-- [ ] T003 [P] Quitar la dependencia no usada `cupertino_icons` y poner una descripción real en `pubspec.yaml` (CLAUDE.md: sin paquetes externos)
-- [ ] T004 Borrar `test/widget_test.dart` de la plantilla: prueba el contador que ya no existe y, en cuanto cambie `main.dart`, rompe `flutter analyze` y `flutter test` (constitución IV). CLAUDE.md exige permiso para tocar `test/`: autorizado por el estudiante en la remediación de `/speckit-analyze` (hallazgo D1)
+- [X] T001 Crear las carpetas `lib/domain/`, `lib/data/` y `lib/presentation/`
+- [X] T002 [P] Activar la regla `public_member_api_docs` en `analysis_options.yaml` (constitución V)
+- [X] T003 [P] Quitar la dependencia no usada `cupertino_icons` y poner una descripción real en `pubspec.yaml` (CLAUDE.md: sin paquetes externos)
+- [X] T004 Borrar `test/widget_test.dart` de la plantilla: prueba el contador que ya no existe y, en cuanto cambie `main.dart`, rompe `flutter analyze` y `flutter test` (constitución IV). CLAUDE.md exige permiso para tocar `test/`: autorizado por el estudiante en la remediación de `/speckit-analyze` (hallazgo D1)
 
 ---
 
@@ -45,9 +45,9 @@ estudiante las pide (Parte 9 de la guía).
 
 **⚠️ CRITICAL**: ninguna historia puede empezar antes de terminar esta fase.
 
-- [ ] T005 [P] Crear la entidad `Cuenta` (campos `monto` double, `personas` int, `propina` double, inmutable, `const`) en `lib/domain/cuenta.dart`
-- [ ] T006 [P] Crear la entidad `Resultado` (campo `montoPorPersona` double) en `lib/domain/resultado.dart`
-- [ ] T007 [P] Crear la interfaz `EstrategiaRedondeo` con un único método `double redondear(double montoPorPersona)` en `lib/domain/estrategia_redondeo.dart`
+- [X] T005 [P] Crear la entidad `Cuenta` (campos `monto` double, `personas` int, `propina` double, inmutable, `const`) en `lib/domain/cuenta.dart`
+- [X] T006 [P] Crear la entidad `Resultado` (campo `montoPorPersona` double) en `lib/domain/resultado.dart`
+- [X] T007 [P] Crear la interfaz `EstrategiaRedondeo` con un único método `double redondear(double montoPorPersona)` en `lib/domain/estrategia_redondeo.dart`
 
 **Regla para todas las tareas de código**: cada clase y miembro público lleva `///` con qué hace, por qué existe, qué recibe, qué devuelve y qué errores produce (constitución V; lo verifica `public_member_api_docs`).
 
