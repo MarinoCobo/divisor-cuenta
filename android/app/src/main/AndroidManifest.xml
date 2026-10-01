@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="divisor_cuenta"
+        android:label="Divide la cuenta"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
