@@ -77,8 +77,8 @@ Regla de dependencia: `presentation -> domain <- data`.
 
 1. Crea `lib/data/redondeo_multiplo_cinco.dart` con una clase que implemente
    `EstrategiaRedondeo` (un solo método: `redondear`).
-2. Agrega una línea al mapa de `crearControlador()` en `lib/main.dart`:
-   `'Múltiplo de 5': RedondeoMultiploCinco(),`
+2. En `lib/main.dart`, importa el archivo nuevo y agrega una entrada al mapa de
+   `crearControlador()`: `'Múltiplo de 5': RedondeoMultiploCinco(),`
 
 No hace falta tocar ningún otro archivo: la pantalla dibuja un botón por cada modo del
 mapa.
