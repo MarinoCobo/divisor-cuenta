@@ -117,29 +117,10 @@ tú.
     git checkout main
     ```
 
-## Parte D: subir a GitHub (5 minutos)
+## Parte D: GitHub (5 minutos)
 
-La lista de entrega pide el repositorio en GitHub con las tres ramas. **No lo subí
-porque necesita tu aprobación.** Tienes dos caminos:
-
-16. **Camino fácil:** respóndeme "sí, súbelo". Crearé el repositorio **privado**
-    `MarinoCobo/divisor-cuenta` y subiré `main`, `vibe` y `sdd`.
-
-    **Camino manual** (si prefieres hacerlo tú), en la carpeta del proyecto:
-
-    ```bash
-    gh repo create MarinoCobo/divisor-cuenta --private --source=. --remote=origin
-    ```
-
-    y después:
-
-    ```bash
-    git push -u origin main vibe sdd
-    ```
-
-    **Verás:** tres líneas `* [new branch]`, una por rama. **Si dice
-    `name already exists`:** ese nombre ya está usado; cambia `divisor-cuenta` por
-    otro, por ejemplo `divisor-cuenta-semana7`.
+16. **Ya está subido** (2026-10-01): repositorio **privado**
+    <https://github.com/MarinoCobo/divisor-cuenta> con las ramas `main`, `vibe` y `sdd`.
 
 17. Abre el repositorio en el navegador:
 
