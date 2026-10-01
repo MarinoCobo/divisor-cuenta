@@ -99,8 +99,8 @@ superior.
 
 **Independent Test**: escenario 6 (10, 3, 0, arriba → 4.00) y la prueba de LSP.
 
-- [ ] T018 [P] [US3] Implementar `RedondeoHaciaArriba` ("al entero superior, salvo que ya sea entero", tolerancia `max(1e-9, |valor| × 1e-12)`, research R4) en `lib/data/redondeo_hacia_arriba.dart`
-- [ ] T019 [US3] Registrar `'Hacia arriba': RedondeoHaciaArriba()` en el mapa de `crearControlador()` en `lib/main.dart`. Esta historia NO debe editar ningún otro archivo de `lib/` (prueba de OCP).
+- [X] T018 [P] [US3] Implementar `RedondeoHaciaArriba` ("al entero superior, salvo que ya sea entero", tolerancia `max(1e-9, |valor| × 1e-12)`, research R4) en `lib/data/redondeo_hacia_arriba.dart`
+- [X] T019 [US3] Registrar `'Hacia arriba': RedondeoHaciaArriba()` en el mapa de `crearControlador()` en `lib/main.dart`. Esta historia NO debe editar ningún otro archivo de `lib/` (prueba de OCP).
 
 **Checkpoint**: las tres historias funcionan.
 

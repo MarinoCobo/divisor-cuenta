@@ -1,4 +1,5 @@
 import 'package:divisor_cuenta/data/redondeo_exacto.dart';
+import 'package:divisor_cuenta/data/redondeo_hacia_arriba.dart';
 import 'package:divisor_cuenta/domain/calcular_division.dart';
 import 'package:divisor_cuenta/domain/validar_entrada.dart';
 import 'package:divisor_cuenta/presentation/divisor_controller.dart';
@@ -15,7 +16,10 @@ DivisorController crearControlador() => DivisorController(
   validarEntrada: const ValidarEntrada(),
   calcularDivision: const CalcularDivision(),
   formateador: const FormateadorMoneda(),
-  estrategias: const {'Exacto': RedondeoExacto()},
+  estrategias: const {
+    'Exacto': RedondeoExacto(),
+    'Hacia arriba': RedondeoHaciaArriba(),
+  },
 );
 
 /// Punto de entrada: arranca la app con la pantalla del divisor.
