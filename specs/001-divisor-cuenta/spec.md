@@ -97,16 +97,16 @@ cambia el redondeo.
 
 ### Edge Cases
 
-- Monto vacío, no numérico, negativo, cero, infinito o con más de un separador decimal:
-  se muestra "Monto inválido".
-- Número de personas vacío, cero o negativo: se muestra "Debe haber al menos una persona".
-- Número de personas no entero o no numérico (por ejemplo "2.5" o "dos"): se muestra
-  "Número de personas inválido".
+- Monto vacío, no numérico, negativo, cero, mayor a 1 000 000 000 o con más de un
+  separador decimal: se muestra "Monto inválido".
+- Número de personas vacío o cero: se muestra "Debe haber al menos una persona".
+- El campo de personas solo admite dígitos (hasta 6), así que no se pueden escribir
+  valores negativos, decimales ni letras.
 - Propina vacía: se interpreta como 0%.
-- Propina negativa o no numérica: se muestra "Propina inválida".
+- Propina negativa, mayor a 100 % o no numérica: se muestra "Propina inválida".
 - Varias entradas inválidas a la vez: se muestra un solo mensaje, en este orden de
   prioridad: monto, personas, propina.
-- Montos muy grandes (por ejemplo 1 000 000 000) o muchas personas (por ejemplo 1 000):
+- El monto máximo (1 000 000 000) con 100 % de propina y 1 persona, o 999 999 personas:
   el cálculo sigue siendo correcto con dos decimales.
 - Un valor por persona que ya es entero (30.00) no sube a 31.00 en modo hacia arriba.
 - Ruido de punto flotante (por ejemplo 27.500000000000004) no cambia el resultado
@@ -168,4 +168,6 @@ cambia el redondeo.
 - El resultado se calcula solo al tocar "Calcular", no mientras el usuario escribe.
 - No hay historial, ni cuentas de usuario, ni división desigual entre personas: fuera
   del alcance de este MVP.
-- No hay un límite superior para la propina (100 % o más es válido, aunque raro).
+- Los límites (monto hasta 1 000 000 000, propina hasta 100 %, personas hasta 999 999)
+  existen para garantizar que los centavos se calculen sin errores de precisión; una
+  propina mayor que la cuenta se considera un error de tipeo.
