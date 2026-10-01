@@ -1,5 +1,6 @@
 import 'package:divisor_cuenta/presentation/divisor_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// La única pantalla de la app: tres campos, el modo de redondeo, el botón
 /// "Calcular" y el resultado.
@@ -32,6 +33,13 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
     super.dispose();
   }
 
+  /// Cualquier cambio en una entrada borra el resultado y el error, para no
+  /// mostrar algo que ya no corresponde a lo que está escrito (FR-011).
+  void _alCambiarEntrada(String _) {
+    if (_controlador.resultado == null && _controlador.error == null) return;
+    setState(_controlador.limpiar);
+  }
+
   void _calcular() {
     setState(() {
       _controlador.calcular(
@@ -46,6 +54,7 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
   Widget build(BuildContext context) {
     final tema = Theme.of(context);
     final resultado = _controlador.resultado;
+    final error = _controlador.error;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Divisor de cuenta')),
@@ -61,6 +70,7 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
                   TextField(
                     key: const Key('campoMonto'),
                     controller: _monto,
+                    onChanged: _alCambiarEntrada,
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
@@ -73,7 +83,12 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
                   TextField(
                     key: const Key('campoPersonas'),
                     controller: _personas,
+                    onChanged: _alCambiarEntrada,
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(6),
+                    ],
                     decoration: const InputDecoration(
                       labelText: 'Número de personas',
                       border: OutlineInputBorder(),
@@ -83,6 +98,7 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
                   TextField(
                     key: const Key('campoPropina'),
                     controller: _propina,
+                    onChanged: _alCambiarEntrada,
                     keyboardType: const TextInputType.numberWithOptions(
                       decimal: true,
                     ),
@@ -128,6 +144,15 @@ class _PantallaDivisorState extends State<PantallaDivisor> {
                       style: tema.textTheme.displaySmall,
                     ),
                   ],
+                  if (error != null)
+                    Text(
+                      error,
+                      key: const Key('mensajeError'),
+                      textAlign: TextAlign.center,
+                      style: tema.textTheme.titleMedium?.copyWith(
+                        color: tema.colorScheme.error,
+                      ),
+                    ),
                 ],
               ),
             ),

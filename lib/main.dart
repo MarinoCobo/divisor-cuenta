@@ -1,5 +1,6 @@
 import 'package:divisor_cuenta/data/redondeo_exacto.dart';
 import 'package:divisor_cuenta/domain/calcular_division.dart';
+import 'package:divisor_cuenta/domain/validar_entrada.dart';
 import 'package:divisor_cuenta/presentation/divisor_controller.dart';
 import 'package:divisor_cuenta/presentation/formateador_moneda.dart';
 import 'package:divisor_cuenta/presentation/pantalla_divisor.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 /// (constitución II). Para agregar un modo de redondeo nuevo se crea su clase
 /// y se agrega una línea al mapa de estrategias; nada más cambia (OCP).
 DivisorController crearControlador() => DivisorController(
+  validarEntrada: const ValidarEntrada(),
   calcularDivision: const CalcularDivision(),
   formateador: const FormateadorMoneda(),
   estrategias: const {'Exacto': RedondeoExacto()},

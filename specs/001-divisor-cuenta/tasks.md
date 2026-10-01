@@ -83,10 +83,10 @@ widget 1 (100, 4, 10 → "27.50").
 **Independent Test**: escenarios 3 y 4 de `test/casos_de_prueba.dart` y las pruebas de
 widget 2 y 3.
 
-- [ ] T014 [P] [US2] Implementar `ValidarEntrada.validar(monto, personas, propina)` → `String?` con las reglas de `data-model.md`: monto "finito, > 0 y ≤ 1 000 000 000" → "Monto inválido"; personas "≥ 1" → "Debe haber al menos una persona"; propina "finito entre 0 y 100" → "Propina inválida"; orden monto → personas → propina; en `lib/domain/validar_entrada.dart`
-- [ ] T015 [US2] En `DivisorController.calcular`, convertir el texto (coma → punto; monto vacío o no numérico → `double.nan`; propina vacía → 0; personas vacías → 0), validar con `ValidarEntrada` y NO calcular si hay error; el error borra el resultado anterior (FR-007) en `lib/presentation/divisor_controller.dart`
-- [ ] T016 [US2] En `PantallaDivisor`: mostrar el `Text` `mensajeError`; campo de personas solo dígitos (máximo 6); cualquier cambio en un campo o en el modo llama a `limpiar()` (FR-011) en `lib/presentation/pantalla_divisor.dart`
-- [ ] T017 [US2] Agregar `ValidarEntrada()` a `crearControlador()` en `lib/main.dart`
+- [X] T014 [P] [US2] Implementar `ValidarEntrada.validar(monto, personas, propina)` → `String?` con las reglas de `data-model.md`: monto "finito, > 0 y ≤ 1 000 000 000" → "Monto inválido"; personas "≥ 1" → "Debe haber al menos una persona"; propina "finito entre 0 y 100" → "Propina inválida"; orden monto → personas → propina; en `lib/domain/validar_entrada.dart`
+- [X] T015 [US2] En `DivisorController.calcular`, convertir el texto (coma → punto; monto vacío o no numérico → `double.nan`; propina vacía → 0; personas vacías → 0), validar con `ValidarEntrada` y NO calcular si hay error; el error borra el resultado anterior (FR-007) en `lib/presentation/divisor_controller.dart`
+- [X] T016 [US2] En `PantallaDivisor`: mostrar el `Text` `mensajeError`; campo de personas solo dígitos (máximo 6); cualquier cambio en un campo o en el modo llama a `limpiar()` (FR-011) en `lib/presentation/pantalla_divisor.dart`
+- [X] T017 [US2] Agregar `ValidarEntrada()` a `crearControlador()` en `lib/main.dart`
 
 **Checkpoint**: "Debe haber al menos una persona" y "Monto inválido" aparecen sin resultado.
 
