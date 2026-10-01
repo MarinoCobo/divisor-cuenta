@@ -6,9 +6,6 @@ import 'package:divisor_cuenta/domain/estrategia_redondeo.dart';
 /// da 3.33. Es una implementación de [EstrategiaRedondeo] que puede sustituir
 /// a cualquier otra sin que el cálculo lo note (LSP).
 class RedondeoExacto implements EstrategiaRedondeo {
-  /// Crea la estrategia. No guarda estado, por eso es `const`.
-  const RedondeoExacto();
-
   /// Margen que absorbe el ruido de punto flotante: 1.005 se guarda como
   /// 1.00499999..., y sin este margen bajaría a 1.00 en vez de subir a 1.01.
   static const double _tolerancia = 1e-6;

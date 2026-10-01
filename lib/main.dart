@@ -12,11 +12,13 @@ import 'package:flutter/material.dart';
 /// Este archivo es el ÚNICO lugar donde se crean implementaciones concretas
 /// (constitución II). Para agregar un modo de redondeo nuevo se crea su clase
 /// y se agrega una línea al mapa de estrategias; nada más cambia (OCP).
+/// Las estrategias no declaran constructor propio, así que la única
+/// aparición de `Nombre()` en `lib/` es la de este archivo.
 DivisorController crearControlador() => DivisorController(
   validarEntrada: const ValidarEntrada(),
   calcularDivision: const CalcularDivision(),
   formateador: const FormateadorMoneda(),
-  estrategias: const {
+  estrategias: {
     'Exacto': RedondeoExacto(),
     'Hacia arriba': RedondeoHaciaArriba(),
   },

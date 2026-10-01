@@ -8,9 +8,6 @@ import 'package:divisor_cuenta/domain/estrategia_redondeo.dart';
 /// y así el grupo siempre cubre la cuenta. Es una implementación de
 /// [EstrategiaRedondeo] que se agregó sin editar ninguna clase existente (OCP).
 class RedondeoHaciaArriba implements EstrategiaRedondeo {
-  /// Crea la estrategia. No guarda estado, por eso es `const`.
-  const RedondeoHaciaArriba();
-
   /// Recibe el [montoPorPersona] sin redondear (finito y mayor o igual a 0) y
   /// devuelve el entero inmediatamente superior, salvo que ya sea entero:
   /// 3.3333 → 4.0, 30.0 → 30.0.

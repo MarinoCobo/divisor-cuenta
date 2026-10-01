@@ -175,4 +175,4 @@ Task: "Implementar FormateadorMoneda en lib/presentation/formateador_moneda.dart
 
 ## Phase 8: Convergence
 
-- [ ] T028 CRITICAL: quitar los constructores `const` explícitos de `RedondeoExacto` y `RedondeoHaciaArriba` (y el `const` del mapa en `lib/main.dart`) para que `grep -rn -E "RedondeoExacto\(\)|RedondeoHaciaArriba\(\)" lib/` devuelva solo `lib/main.dart`; hoy también devuelve `lib/data/redondeo_exacto.dart:10` y `lib/data/redondeo_hacia_arriba.dart:12` per Constitution II (contradicts)
+- [X] T028 CRITICAL: quitar los constructores `const` explícitos de `RedondeoExacto` y `RedondeoHaciaArriba` (y el `const` del mapa en `lib/main.dart`) para que `grep -rn -E "RedondeoExacto\(\)|RedondeoHaciaArriba\(\)" lib/` devuelva solo `lib/main.dart`; hoy también devuelve `lib/data/redondeo_exacto.dart:10` y `lib/data/redondeo_hacia_arriba.dart:12` per Constitution II (contradicts)
