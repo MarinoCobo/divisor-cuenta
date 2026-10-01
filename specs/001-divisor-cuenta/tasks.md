@@ -170,3 +170,9 @@ Task: "Implementar FormateadorMoneda en lib/presentation/formateador_moneda.dart
 - Hallazgo durante implement: T011 listaba `ValidarEntrada` en el constructor del
   controlador, pero esa clase no existe hasta T014 (US2). Se implementó T011 sin ella y
   se agregó en T015. `/speckit-analyze` no lo detectó.
+
+---
+
+## Phase 8: Convergence
+
+- [ ] T028 CRITICAL: quitar los constructores `const` explícitos de `RedondeoExacto` y `RedondeoHaciaArriba` (y el `const` del mapa en `lib/main.dart`) para que `grep -rn -E "RedondeoExacto\(\)|RedondeoHaciaArriba\(\)" lib/` devuelva solo `lib/main.dart`; hoy también devuelve `lib/data/redondeo_exacto.dart:10` y `lib/data/redondeo_hacia_arriba.dart:12` per Constitution II (contradicts)
