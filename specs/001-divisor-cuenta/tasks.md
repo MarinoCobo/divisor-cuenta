@@ -63,12 +63,12 @@ persona con dos decimales (modo exacto).
 **Independent Test**: escenarios 1, 2 y 5 de `test/casos_de_prueba.dart` y la prueba de
 widget 1 (100, 4, 10 → "27.50").
 
-- [ ] T008 [P] [US1] Implementar `RedondeoExacto` ("al centavo más cercano, mitad hacia arriba", con tolerancia `1e-6`, research R3) en `lib/data/redondeo_exacto.dart`
-- [ ] T009 [P] [US1] Implementar `CalcularDivision.calcular(Cuenta, EstrategiaRedondeo)` con `monto × (100 + propina) / (100 × personas)` y sin `is`/`as`, sin validar ni formatear, en `lib/domain/calcular_division.dart`
-- [ ] T010 [P] [US1] Implementar `FormateadorMoneda.formatear(double)` → texto con exactamente dos decimales en `lib/presentation/formateador_moneda.dart`
-- [ ] T011 [US1] Implementar `DivisorController` (recibe `ValidarEntrada`, `CalcularDivision`, `FormateadorMoneda` y `Map<String, EstrategiaRedondeo>` por constructor; expone `modos`, `modoSeleccionado`, `resultado`, `error`, `seleccionarModo`, `calcular`, `limpiar`) en `lib/presentation/divisor_controller.dart` (depende de T009, T010)
-- [ ] T012 [US1] Implementar `PantallaDivisor` (StatefulWidget con setState; campos `campoMonto`, `campoPersonas`, `campoPropina`; `SegmentedButton` `selectorModo` con un segmento por cada modo del mapa; `botonCalcular`; `Text` `resultado` bajo la etiqueta "Cada persona paga") según `contracts/pantalla.md` en `lib/presentation/pantalla_divisor.dart` (depende de T011)
-- [ ] T013 [US1] Reescribir `lib/main.dart` como único punto de composición: `crearControlador()` con el mapa `{'Exacto': RedondeoExacto()}` y `runApp(MaterialApp(home: PantallaDivisor(...)))` (depende de T008, T012)
+- [X] T008 [P] [US1] Implementar `RedondeoExacto` ("al centavo más cercano, mitad hacia arriba", con tolerancia `1e-6`, research R3) en `lib/data/redondeo_exacto.dart`
+- [X] T009 [P] [US1] Implementar `CalcularDivision.calcular(Cuenta, EstrategiaRedondeo)` con `monto × (100 + propina) / (100 × personas)` y sin `is`/`as`, sin validar ni formatear, en `lib/domain/calcular_division.dart`
+- [X] T010 [P] [US1] Implementar `FormateadorMoneda.formatear(double)` → texto con exactamente dos decimales en `lib/presentation/formateador_moneda.dart`
+- [X] T011 [US1] Implementar `DivisorController` (recibe `ValidarEntrada`, `CalcularDivision`, `FormateadorMoneda` y `Map<String, EstrategiaRedondeo>` por constructor; expone `modos`, `modoSeleccionado`, `resultado`, `error`, `seleccionarModo`, `calcular`, `limpiar`) en `lib/presentation/divisor_controller.dart` (depende de T009, T010)
+- [X] T012 [US1] Implementar `PantallaDivisor` (StatefulWidget con setState; campos `campoMonto`, `campoPersonas`, `campoPropina`; `SegmentedButton` `selectorModo` con un segmento por cada modo del mapa; `botonCalcular`; `Text` `resultado` bajo la etiqueta "Cada persona paga") según `contracts/pantalla.md` en `lib/presentation/pantalla_divisor.dart` (depende de T011)
+- [X] T013 [US1] Reescribir `lib/main.dart` como único punto de composición: `crearControlador()` con el mapa `{'Exacto': RedondeoExacto()}` y `runApp(MaterialApp(home: PantallaDivisor(...)))` (depende de T008, T012)
 
 **Nota (analyze F2)**: el selector de modo se construye ya en US1 aunque solo haya un modo; así US3 agrega el segundo modo sin editar la pantalla (OCP).
 
@@ -167,3 +167,6 @@ Task: "Implementar FormateadorMoneda en lib/presentation/formateador_moneda.dart
 
 - Total: 27 tareas (T001-T027).
 - Commit después de cada fase.
+- Hallazgo durante implement: T011 listaba `ValidarEntrada` en el constructor del
+  controlador, pero esa clase no existe hasta T014 (US2). Se implementó T011 sin ella y
+  se agregó en T015. `/speckit-analyze` no lo detectó.
