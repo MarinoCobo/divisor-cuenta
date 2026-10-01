@@ -108,15 +108,15 @@ superior.
 
 ## Phase 6: Pruebas ejecutables (cuando el estudiante las pida, Parte 9)
 
-- [ ] T020 Escribir a mano `test/casos_de_prueba.dart` con los 6 escenarios de la spec (lo hace el estudiante, tal cual la guía 9.1)
-- [ ] T021 [P] Crear `test/division_test.dart`: un `test()` por caso (con `ValidarEntrada` y `CalcularDivision`, `closeTo(esperado, 0.001)`) y una prueba aparte de LSP con la misma instancia de `CalcularDivision` usando `RedondeoExacto` y `RedondeoHaciaArriba`, sin widgets
-- [ ] T022 [P] Crear `test/pantalla_test.dart` con 3 pruebas de widget: "27.50"; "Debe haber al menos una persona" sin resultado; "Monto inválido"
+- [X] T020 Escribir a mano `test/casos_de_prueba.dart` con los 6 escenarios de la spec (lo hace el estudiante, tal cual la guía 9.1)
+- [X] T021 [P] Crear `test/division_test.dart`: un `test()` por caso (con `ValidarEntrada` y `CalcularDivision`, `closeTo(esperado, 0.001)`) y una prueba aparte de LSP con la misma instancia de `CalcularDivision` usando `RedondeoExacto` y `RedondeoHaciaArriba`, sin widgets
+- [X] T022 [P] Crear `test/pantalla_test.dart` con 3 pruebas de widget: "27.50"; "Debe haber al menos una persona" sin resultado; "Monto inválido"
 
 ---
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T023 `dart format lib test` y `flutter analyze` sin issues
+- [X] T023 `dart format lib test` y `flutter analyze` sin issues
 - [ ] T024 Correr los comandos de "Verificación de cumplimiento" de `.specify/memory/constitution.md`
 - [ ] T025 Validar a mano los 6 escenarios de `quickstart.md` corriendo la app, y comprobar que el resultado aparece en menos de 1 s (SC-003)
 - [ ] T026 [P] Reemplazar `README.md` de la plantilla por uno que explique qué es, cómo instalar, correr y probar
