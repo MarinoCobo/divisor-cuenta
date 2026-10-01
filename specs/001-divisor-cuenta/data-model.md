@@ -22,6 +22,9 @@ Orden de validación: monto → personas → propina. Se devuelve solo el primer
 
 ## EstrategiaRedondeo (interfaz)
 
+Es el "modo de redondeo" de la spec: el usuario ve un modo ("Exacto", "Hacia arriba"),
+el código lo implementa como una `EstrategiaRedondeo` (hallazgo F1 de `/speckit-analyze`).
+
 | Método | Recibe | Devuelve |
 |---|---|---|
 | `redondear` | `double` monto por persona sin redondear (finito, ≥ 0) | `double` monto redondeado |
