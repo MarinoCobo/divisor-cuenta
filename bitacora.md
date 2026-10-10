@@ -32,7 +32,7 @@ Proyecto React: `divisor_cuenta_web` (repositorio aparte)
 | Enunciados modificados en la spec | — | **0 de 53 (0 %)** |
 | Enunciados modificados en la Constitution | — | **18 de 31 (58,1 %)** |
 | Líneas modificadas en el plan | — | **95 añadidas / 58 eliminadas**; **25 de 30 enunciados (83,3 %)** |
-| Casos de aceptación que pasan (0–6) | `no registrado` | **6 de 6** |
+| Casos de aceptación que pasan (0–6) | **6 de 6** | **6 de 6** |
 
 En el laboratorio de Flutter no se llevó bitácora, así que esas cuatro casillas van como
 `no registrado`. **No se estiman**: inventar un número de Flutter para que la comparación
@@ -77,26 +77,43 @@ debe poder explicar cada función que genere el agente: qué hace, por qué exis
 recibe, qué devuelve y qué errores produce. Esa es la casilla que ningún cronómetro mide y
 que queda pendiente de la revisión del estudiante.
 
-### Nota 3 — `flutter test` no se pudo ejecutar en esta máquina
+### Nota 3 — `flutter test` en la rama `sdd`: verificado
 
 La Parte 1 del deber pide comprobar que `flutter test` termina con `All tests passed!` en
-la rama `sdd` **antes** de empezar. En la máquina donde se hizo este deber **no están
-instalados Flutter ni Dart** (`flutter: command not found`), y el SDK son 1–2 GB de
-descarga, imposible con la conexión disponible.
+la rama `sdd` **antes** de empezar. En la máquina donde se hizo este deber Flutter no
+estaba instalado, así que se instaló el SDK (Flutter 3.47.7, Dart 3.13.5 — las mismas
+versiones que declara `plan.md`) y se ejecutó:
 
-Lo que sí se verificó de la rama `sdd`, por inspección directa:
+```console
+$ flutter test
+00:00 +33: All tests passed!
 
-- Los 5 archivos de prueba existen y declaran **33 pruebas**: `division_test.dart`
-  (el bucle de los 6 casos + LSP), `pantalla_test.dart` (3), `casos_borde_test.dart` (19),
-  `pantalla_borde_test.dart` (4).
-- `test/casos_de_prueba.dart` contiene los 6 escenarios de la spec con los valores y
-  mensajes que la spec fija.
-- El historial muestra el commit `pruebas: 6 escenarios de la spec, LSP, 3 de widget y
-  casos borde (T020-T023)`.
+$ flutter analyze
+Analyzing divisor_cuenta...
+No issues found! (ran in 8.7s)
+```
 
-**La casilla "Casos de aceptación que pasan" de la columna Flutter queda como
-`no registrado` por esta razón**, no porque se sospeche que fallan. Hay que correr
-`flutter test` en una máquina con el SDK antes de entregar.
+**33 pruebas en verde y el análisis estático sin issues**, que es exactamente lo que exige
+el principio IV de la constitución de Flutter. Las 33 son: el bucle de los 6 escenarios de
+aceptación de la spec, la prueba de LSP, 3 de pantalla, 19 de casos borde del domain y 4 de
+casos borde de la pantalla.
+
+La tabla de "Verificación de cumplimiento" de la constitución también pasa entera:
+
+```console
+$ grep -rn "package:flutter" lib/domain/                                  # sin salida
+$ grep -rn -E "RedondeoExacto\(\)|RedondeoHaciaArriba\(\)" lib/
+lib/main.dart:22:    'Exacto': RedondeoExacto(),
+lib/main.dart:23:    'Hacia arriba': RedondeoHaciaArriba(),               # solo main.dart
+$ grep -rn "data/" lib/presentation/                                      # sin salida
+$ grep -n -E "is Redondeo|as Redondeo" lib/domain/calcular_division.dart  # sin salida
+$ grep -n -E "toStringAsFixed|inválido|al menos una persona" \
+       lib/domain/calcular_division.dart                                  # sin salida
+$ grep -rniE "api[_-]?key|secret|password|token" lib/                     # sin salida
+```
+
+Es decir: la rama de partida cumplía su propia especificación antes de migrar, que es la
+precondición que el deber exige para que la comparación tenga sentido.
 
 ## Resumen de lo que viajó
 
