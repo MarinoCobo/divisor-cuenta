@@ -13,8 +13,11 @@ class ValidarEntrada {
   /// Mensaje cuando hay menos de una persona.
   static const String personasInsuficientes = 'Debe haber al menos una persona';
 
-  /// Mensaje cuando la propina no es un número o está fuera de 0 a 100.
+  /// Mensaje cuando la propina no es un número o es negativa.
   static const String propinaInvalida = 'Propina inválida';
+
+  /// Mensaje cuando la propina pasa de [propinaMaxima].
+  static const String propinaExcedida = 'La propina no puede superar el 100%';
 
   /// Monto máximo aceptado. Con este tope, el monto por persona cabe en las
   /// cifras exactas de un `double` y los centavos siempre son correctos.
@@ -43,8 +46,11 @@ class ValidarEntrada {
     if (personas < 1) {
       return personasInsuficientes;
     }
-    if (!propina.isFinite || propina < 0 || propina > propinaMaxima) {
+    if (!propina.isFinite || propina < 0) {
       return propinaInvalida;
+    }
+    if (propina > propinaMaxima) {
+      return propinaExcedida;
     }
     return null;
   }
