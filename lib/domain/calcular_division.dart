@@ -11,6 +11,9 @@ class CalcularDivision {
   /// Crea el caso de uso. No guarda estado, por eso es `const`.
   const CalcularDivision();
 
+  /// El 100 % de la cuenta: la propina es un porcentaje sobre esta base.
+  static const double _cuentaCompleta = 100;
+
   /// Recibe una [cuenta] ya revisada por `ValidarEntrada` y la [estrategia]
   /// de redondeo elegida, y devuelve el [Resultado] con el monto por persona:
   /// `monto × (100 + propina) / (100 × personas)`, redondeado por la
@@ -21,7 +24,9 @@ class CalcularDivision {
   /// tiene sentido; por eso la cuenta debe venir revisada.
   Resultado calcular(Cuenta cuenta, EstrategiaRedondeo estrategia) {
     final montoSinRedondear =
-        cuenta.monto * (100 + cuenta.propina) / (100 * cuenta.personas);
+        cuenta.monto *
+        (_cuentaCompleta + cuenta.propina) /
+        (_cuentaCompleta * cuenta.personas);
     return Resultado(estrategia.redondear(montoSinRedondear));
   }
 }
