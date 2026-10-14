@@ -53,8 +53,10 @@ void main() {
       );
     });
 
-    test('propina negativa, mayor a 100 o no numérica es inválida', () {
-      for (final propina in [-1.0, 100.5, double.nan, double.infinity]) {
+    // Mayor a 100 ya no es "Propina inválida": tiene su propio mensaje
+    // (ver 'la propina no puede superar el 100 %' en division_test.dart).
+    test('propina negativa o no numérica es inválida', () {
+      for (final propina in [-1.0, double.nan, double.infinity]) {
         expect(
           validar.validar(monto: 10, personas: 2, propina: propina),
           'Propina inválida',

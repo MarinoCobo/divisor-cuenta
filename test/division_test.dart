@@ -93,4 +93,32 @@ void main() {
       expect(montos[1], closeTo(4.00, 0.001));
     },
   );
+
+  group('la propina no puede superar el 100 %', () {
+    test(
+      'monto 100, 4 personas y propina 150 da el error de propina máxima',
+      () {
+        final error = validarEntrada.validar(
+          monto: 100,
+          personas: 4,
+          propina: 150,
+        );
+
+        expect(error, 'La propina no puede superar el 100%');
+      },
+    );
+
+    test(
+      'monto 100, 4 personas y propina 100 no da error (el límite sí vale)',
+      () {
+        final error = validarEntrada.validar(
+          monto: 100,
+          personas: 4,
+          propina: 100,
+        );
+
+        expect(error, isNull);
+      },
+    );
+  });
 }
