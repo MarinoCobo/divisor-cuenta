@@ -49,3 +49,4 @@ app.*.map.json
 
 # Secretos locales: nunca al repositorio (constitución III)
 .env*
+coverage/
